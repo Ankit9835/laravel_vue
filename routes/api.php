@@ -15,3 +15,5 @@ Route::group([
     Route::post('/me', [App\Http\Controllers\AuthController::class, 'me']);
 
 });
+
+Route::apiResource('/category', App\Http\Controllers\Api\CategoryController::class);

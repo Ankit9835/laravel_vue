@@ -19,6 +19,7 @@
  <div id = "app">
  <div id="wrapper">
     <!-- Sidebar -->
+    <nav id = "sidebar" v-show = "$route.path === '/' || $route.path === '/register' || $route.path === '/forget' ? false : true " style = "display:none;">
     <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon">
@@ -36,7 +37,7 @@
       <div class="sidebar-heading">
         Features
       </div>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
           <i class="far fa-fw fa-window-maximize"></i>
@@ -53,34 +54,34 @@
             <a class="collapse-item" href="progress-bar.html">Progress Bars</a>
           </div>
         </div>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a class="nav-link" href="forms.html">
           <i class="fab fa-fw fa-wpforms"></i>
           <span>Forms</span>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
           <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span>
+          <span>Categories</span>
         </a>
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Tables</h6>
-            <a class="collapse-item" href="simple-tables.html">Simple Tables</a>
-            <a class="collapse-item" href="datatables.html">DataTables</a>
+            <!-- <h6 class="collapse-header">Tables</h6> -->
+            <router-link to = "/store-category" class="collapse-item">Add Category</router-link>
+            <router-link to = "/category" class="collapse-item">List Category</router-link>
           </div>
         </div>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="ui-colors.html">
           <i class="fas fa-fw fa-palette"></i>
           <span>UI Colors</span>
         </a>
-      </li>
-      <hr class="sidebar-divider">
+      </li> -->
+      <!-- <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Examples
       </div>
@@ -105,15 +106,16 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span>
         </a>
-      </li>
+      </li> -->
       <hr class="sidebar-divider">
       <div class="version" id="version-ruangadmin"></div>
     </ul>
+</nav>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <!-- TopBar -->
-        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top"  id = "topbar" v-show = "$route.path === '/' || $route.path === '/register' || $route.path === '/forget' ? false : true " style = "display:none;">
           <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
@@ -273,7 +275,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px">
-                <span class="ml-2 d-none d-lg-inline text-white small">Maman Ketoprak</span>
+                <router-link to = "/logout" class="ml-2 d-none d-lg-inline text-white small">Logout</router-link>
               </a>
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
@@ -306,7 +308,7 @@
         <!---Container Fluid-->
       </div>
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+      <!-- <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>copyright &copy; <script> document.write(new Date().getFullYear()); </script> - developed by
@@ -314,7 +316,7 @@
             </span>
           </div>
         </div>
-      </footer>
+      </footer> -->
       <!-- Footer -->
     </div>
   </div>
@@ -330,7 +332,13 @@
  
   <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
  <!--  <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> -->
- 
+ <script type="text/javascript">
+   let token = localStorage.getItem('token');
+   if(token){
+    $("#sidebar").css("display","");
+    $("#topbar").css("display","");
+   }
+ </script>
   <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
   <script src="{{ asset('backend/js/ruang-admin.min.js') }}"></script>
   <script src="{{ asset('backend/vendor/chart.js/Chart.min.js') }}"></script>

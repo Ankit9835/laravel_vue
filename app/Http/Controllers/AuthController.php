@@ -16,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('JWT', ['except' => ['login', 'signup']]);
+        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
     }
 
     /**
@@ -24,8 +24,14 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
+
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
@@ -100,7 +106,10 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
+            'user_id' => auth()->user()->id,
         ]);
     }
 }
