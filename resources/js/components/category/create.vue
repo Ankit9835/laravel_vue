@@ -18,15 +18,33 @@
                   <form @submit.prevent = "categoryInsert">
                    
 
+                   <div class = "form-row">
+                      	<div class = "col-sm-12">
+                        <label> <strong> Select Category </strong> </label>
+                      		<select class="form-control" id="exampleFormControlSelect1" v-on:change="fetchData" v-model="form.category_id">  
+                             
+                              <option value="0">Root</option>
+                              <option v-for="category in categories" :value="category.id">{{ category.category_name }}</option>\
+                                
+                                <small class="text-danger" v-if = "errors.category_id"> {{ errors.category_id[0] }}  </small>  
+                            </select>
+                            
+                      	</div>
+                    </div>
+                    <input type = "hidden"  v-model="form.sub_category">
+                    <br>
                      <div class="form-group"> 
                       <div class = "form-row">
                       	<div class = "col-sm-12">
-                      		<input type="text" class="form-control" id="exampleInputFirstName" v-model = "form.category_name" placeholder="Enter Your Category Name">
+                      		<input type="text" class="form-control" id="exampleInputFirstName" v-model = "form.category_name" placeholder="Enter Your Sub Category Name">
                               <small class="text-danger" v-if = "errors.category_name"> {{ errors.category_name[0] }}  </small>
                       	</div>
                       </div>
                     </div>
 
+                   
+
+                    
                     <div class="form-group"> 
                       <div class = "form-row">
                       	<div class = "col-sm-12">
@@ -36,14 +54,7 @@
                       </div>
                     </div>
 
-                    <div class = "form-row">
-                      	<div class = "col-sm-12">
-                      		<select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">  
-                              <option value="" selected="" disabled="">Select Category</option>       
-                                <option :value="category.id" v-for="category in categories">{{ category.category_name }}</option>
-                            </select>  
-                      	</div>
-                    </div>
+                    
                     
                     <br> <br>
                     <div class="form-group">
@@ -82,11 +93,16 @@ export default {
         category_name: null,
         category_link: null,
         category_id: null,
+         sub_category:{}
       },
+     
       errors:{},
       categories:{},
+      
     }
   },
+
+  
 
     methods:{
     categoryInsert(){
@@ -97,6 +113,12 @@ export default {
       })
       .catch(error =>this.errors = error.response.data.errors)
       
+    },
+
+    fetchData(){
+      let id = event.target.value;
+      axios.get('/api/fetch/data/'+id)
+     .then((response) => (this.form.sub_category = response.data))
     }
   }
 

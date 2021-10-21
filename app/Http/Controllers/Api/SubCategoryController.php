@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\SubCategory;
 
-class CategoryController extends Controller
+
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,23 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-        
-        //$category = Category::all();
-        // $category = Category::query()
-        //     ->with(array('category' => function($query) {
-        //         $query->select('category_name');
-        //     }))
-        //     ->get();
-    //    $category =  Category::with('category')->where('category_name', '!=', 'root')->get();
-
-        $category = Category::latest()->get();
-
-    //    $message = collect(Category::with('category')->get());
-
-    //    $category = $message->unique('category_name');
-   
-    //    $category->values()->all();
+        $category = SubCategory::with('category')->latest()->get();
         return response()->json($category);
     }
 
@@ -54,18 +39,15 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories',
+            'category_id' => 'required',
+            'sub_category_name' => 'required|unique:sub_categories',
         ]);
 
-        // Category::create([
-        //     'category_name' => $request->category_name,
-        //     'category_link' => $request->category_link,
-        //     'parent_id' => $request->parent_id,
-        // ]);
+    
 
-        $category = new Category;
-        $category->category_name = $request->category_name;
-        $category->category_link = $request->category_link;
+        $category = new SubCategory;
+        $category->category_id = $request->category_id;
+        $category->sub_category_name = $request->sub_category_name;
        
         $category->save();
     }
@@ -78,16 +60,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
-        return response()->json($category);
-    }
-
-    public function fetchData($id){
-        $category = Category::findOrFail($id);
-        $parent_id = $category->category_id;
-       
-        return response()->json($parent_id);
-      
+        $subcategory = SubCategory::findOrFail($id);
+        return response()->json($subcategory);
     }
 
     /**
@@ -110,9 +84,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Category::where('id', $id)->update([
-            'category_name' => $request->category_name,
-            'category_link' => $request->category_link,
+        $subcategory = SubCategory::where('id', $id)->update([
+            'category_id' => $request->category_id,
+            'sub_category_name' => $request->sub_category_name
         ]);
     }
 
@@ -124,7 +98,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
-        Category::where('id', $id)->delete();
+        SubCategory::where('id', $id)->delete();
     }
 }

@@ -17,3 +17,16 @@ Route::group([
 });
 
 Route::apiResource('/category', App\Http\Controllers\Api\CategoryController::class);
+Route::get('/fetch/data/{id}',[App\Http\Controllers\Api\CategoryController::class, 'fetchData']);
+
+
+// subcategory
+Route::apiResource('/subcategory', App\Http\Controllers\Api\SubCategoryController::class);
+
+// subsubcategory
+Route::apiResource('/sub-subcategory', App\Http\Controllers\Api\Sub_SubCategoryController::class);
+
+
+// brand
+Route::apiResource('/brand', App\Http\Controllers\Api\BrandController::class);
+Route::get('/category/subcategory/ajax/{id}',[App\Http\Controllers\Api\Sub_SubCategoryController::class, 'fetchData']);

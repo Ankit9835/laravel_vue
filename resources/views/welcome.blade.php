@@ -61,7 +61,33 @@
           <span>Forms</span>
         </a>
       </li> -->
-      <li class="nav-item">
+      <li class="nav-item active">
+        <router-link class="nav-link" to="/category">
+        <i class="fas fa-fw fa-table"></i>
+          <span>Category</span></router-link>
+      </li>
+
+      <li class="nav-item active">
+        <router-link class="nav-link" to="/sub-category">
+        <i class="fas fa-fw fa-table"></i>
+          <span>Sub Category</span></router-link>
+      </li>
+
+       <li class="nav-item active">
+        <router-link class="nav-link" to="/sub-sub-category">
+        <i class="fas fa-fw fa-table"></i>
+          <span>Sub Sub Category</span></router-link>
+      </li>
+
+      <li class="nav-item active">
+        <router-link class="nav-link" to="/brand">
+        <i class="fas fa-fw fa-table"></i>
+          <span>Brands</span></router-link>
+      </li>
+
+     
+
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
           <i class="fas fa-fw fa-table"></i>
@@ -69,12 +95,12 @@
         </a>
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <!-- <h6 class="collapse-header">Tables</h6> -->
+            <h6 class="collapse-header">Tables</h6>
             <router-link to = "/store-category" class="collapse-item">Add Category</router-link>
             <router-link to = "/category" class="collapse-item">List Category</router-link>
           </div>
         </div>
-      </li>
+      </li> -->
       <!-- <li class="nav-item">
         <a class="nav-link" href="ui-colors.html">
           <i class="fas fa-fw fa-palette"></i>
@@ -329,7 +355,7 @@
   </a>
   
   <script src="{{ asset('js/app.js') }}"></script>
- 
+  <script src="https://kit.fontawesome.com/9bac21259f.js" crossorigin="anonymous"></script>
   <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
  <!--  <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> -->
  <script type="text/javascript">

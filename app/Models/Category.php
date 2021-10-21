@@ -15,11 +15,11 @@ class Category extends Model
     protected $parentColumn = 'category_id';
     public $timestamps = false;
 
-    protected $fillable = ['category_name','category_link','category_id'];
+    protected $fillable = ['category_name','category_link'];
 
-    public function category(){
-        return $this->belongsTo(Category::class,$this->parentColumn)->select('category_name','id');
-    }
+    // public function category(){
+    //     return $this->belongsTo(Category::class,$this->parentColumn)->select('category_name','id');
+    // }
 
     // public function parent()
     // {

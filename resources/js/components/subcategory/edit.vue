@@ -2,7 +2,7 @@
 	<div>
 
 	<div class = "row">
-		<router-link to = "/category" class = "btn btn-primary"> All Category  </router-link>
+		<router-link to = "/sub-category" class = "btn btn-primary"> All Sub-Category  </router-link>
 	</div>
 
 	 <div class="row justify-content-center">
@@ -13,14 +13,15 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Category Update</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Sub Category Update</h1>
                   </div>
-                  <form @submit.prevent = "categoryUpdate">
+                  <form @submit.prevent = "subcategoryUpdate">
                    <div class="form-group"> 
                       <div class = "form-row">
                       	<div class = "col-sm-12">
-                      		<input type="text" class="form-control" id="exampleInputFirstName" v-model = "form.category_name" placeholder="Enter Your Category Name">
-                              <small class="text-danger" v-if = "errors.category_name"> {{ errors.category_name[0] }}  </small>
+                      		 <select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">
+                                <option :value="category.id" v-for="category in categories">{{ category.category_name }}</option>
+                             </select> 
                       	</div>
                       </div>
                     </div>
@@ -28,8 +29,8 @@
                     <div class="form-group"> 
                       <div class = "form-row">
                       	<div class = "col-sm-12">
-                      		<input type="text" class="form-control" id="exampleInputFirstName" v-model = "form.category_link" placeholder="Enter Your Category Link">
-                              <small class="text-danger" v-if = "errors.category_link"> {{ errors.category_link[0] }}  </small>
+                      		<input type="text" class="form-control" id="exampleInputFirstName" v-model = "form.sub_category_name" placeholder="Enter Your Sub Category">
+                              <small class="text-danger" v-if = "errors.sub_category_name"> {{ errors.sub_category_name[0] }}  </small>
                       	</div>
                       </div>
                     </div>
@@ -69,9 +70,8 @@
     data(){
     return{
       form:{
-       category_name: null,
-        category_link: null,
-        category_id: null,
+       category_id: null,
+        sub_category_name: null,
       },
       errors:{},
       categories:{},
@@ -79,7 +79,7 @@
   },
    created(){
     let id = this.$route.params.id
-    axios.get('/api/category/'+id)
+    axios.get('/api/subcategory/'+id)
     .then(({data}) => (this.form = data))
     .catch(console.log('error'))
 
@@ -89,11 +89,11 @@
   },
   methods:{
 
-    categoryUpdate(){
+    subcategoryUpdate(){
       let id = this.$route.params.id
-      axios.patch('/api/category/'+id,this.form)
+      axios.patch('/api/subcategory/'+id,this.form)
       .then(() => {
-        this.$router.push({name : 'category'})
+        this.$router.push({name : 'subcategory'})
         Notification.success()
       })
       .catch(error =>this.errors = error.response.data.errors)
